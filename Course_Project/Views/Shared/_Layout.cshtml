@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Course_Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/simple-sidebar.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap4-editable/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/tagify/tagify.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+
+    <div class="d-flex align-items-stretch" id="wrapper">
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">HEADER</div>
+            <div class="list-group list-group-flush">
+
+                <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action bg-light">@Localizer["Index"]</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Panel" asp-action="Index" asp-route-pageNumber="1" class="list-group-item list-group-item-action bg-light">@Localizer["AdminPanel"]</a>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Profile" asp-action="Detail" asp-route-userName="@User.Identity.Name" class="list-group-item list-group-item-action bg-light">@Localizer["Profile"]</a>
+                    <a asp-controller="Auth" asp-action="Logout" class="list-group-item list-group-item-action bg-light">@Localizer["SignOut"]</a>
+                }
+                else
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="list-group-item list-group-item-action bg-light">@Localizer["Login"]</a>
+                    <a asp-controller="Auth" asp-action="Register" class="list-group-item list-group-item-action bg-light">@Localizer["Registration"]</a>
+                }
+
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-info navbar-toggler-icon" id="menu-toggle"></button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            @await Html.PartialAsync("_SelectLanguagePartial")
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid mt-3">
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap4-editable/js/bootstrap-editable.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

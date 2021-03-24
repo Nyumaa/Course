@@ -1,0 +1,104 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+.ageRaiting {
+    border-radius: 12px;
+    background: #3a60ae;
+    padding: 3px 6px 3px 6px;
+    cursor: help;
+}
+
+.size {
+    border-radius: 12px;
+    background: #8c4a8f;
+    padding: 3px 20px 3px 20px;
+    cursor: help;
+}
+
+.customLook {
+    --tag-bg: #0052BF;
+    --tag-hover: #CE0078;
+    --tag-text-color: #FFF;
+    --tags-border-color: silver;
+    --tag-text-color--edit: #111;
+    --tag-remove-bg: var(--tag-hover);
+    --tag-pad: .1em 1em;
+    --tag-inset-shadow-size: 1.3em;
+    --tag-remove-btn-bg--hover: black;
+    display: inline-block;
+    min-width: 0;
+    border: none;
+}
+
+    .customLook .tagify__tag > div {
+        border-radius: 25px;
+    }

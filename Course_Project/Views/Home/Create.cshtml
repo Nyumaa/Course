@@ -1,0 +1,196 @@
+﻿@model Course_Project.Models.ViewModels.CreateViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<style>
+    .helpCursor{
+        cursor: help;
+        border-bottom: 1px dotted #000;
+    }
+</style>
+<div class="mt-2 ml-3" style="color: red;">
+    <p>@Html.ValidationSummary()</p>
+</div>
+@Model.Author s
+<form method="post" asp-controller="Home" asp-action="CreatePost">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Author" type="hidden" value="@Model.Author" />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">TITLE<span style="color: red;">*</span></span>
+        </div>
+        <input asp-for="Title" class="form-control" aria-label="Title" aria-describedby="inputGroup-sizing-default" type="text" name="Title" />
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" checked type="radio" name="category" id="radioOrigin" value="Origin">
+        <label class="form-check-label" for="radiosOrigin1">
+            Origin
+        </label>
+        <input type="hidden" id="hRadioOrigin" asp-for="Category" value="Origin" />
+    </div>
+    <div class="form-check mb-2">
+        <input class="form-check-input" type="radio" name="category" id="radioOrigin2" value="s">
+        <label class="form-check-label" for="radiosOrigin2">
+            Fandom
+        </label>
+    </div>
+    <div id="selectFandom" style="display: none;" class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">FANDOM</span>
+        </div>
+        <select id="CategoryFandom" class="form-control" name="category" aria-label="Default select example">
+            <option value="1" selected>Anime and manga</option>
+            <option value="2">Books</option>
+            <option value="3">Cartoons</option>
+            <option value="4">Games</option>
+            <option value="5">Films and serials</option>
+            <option value="6">Other</option>
+            <option value="7">Famous people</option>
+            <option value="8">Comics</option>
+            <option value="9">Musicals</option>
+        </select>
+    </div>
+
+    <div class="input-group-prepend">
+        <span class="input-group-text mb-1" id="inputGroup-sizing-default">DESCRIPTION<span style="color: red;">*</span></span>
+        <i class="bi bi-question-circle ml-2" style="cursor: help;" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipDescription"]"></i>
+    </div>
+    <textarea asp-for="Description" id="mytextarea" name="Description" class="w-100 border bg-light p-2">
+    Hello, World!
+    </textarea>
+    <div class="mt-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text mb-1" id="inputGroup-sizing-default">SIZE</span>
+        </div>
+        <div class="ml-1">
+            <div class="form-check">
+                <input asp-for="Size" class="form-check-input" checked type="radio" name="size" id="radioSize1" value="Drabbl">
+                <label class="form-check-label helpCursor" for="radiosSize1" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize1"]">
+                    Драббл
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize2" value="Mini">
+                <label class="form-check-label helpCursor" for="radiosSize2" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize2"]">
+                    Мини
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize3" value="Midi">
+                <label class="form-check-label helpCursor" for="radiosSize3" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize3"]">
+                    Миди
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize4" value="Maxi">
+                <label class="form-check-label helpCursor" for="radiosSize4" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize4"]">
+                    Макси
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text mb-1" id="inputGroup-sizing-default">RAITING</span>
+        </div>
+        <div class="ml-1">
+            <div class="form-check">
+                <input asp-for="AgeRaiting" class="form-check-input" checked type="radio" name="ageraiting" id="radioRaiting1" value="G">
+                <label class="form-check-label helpCursor" for="radiosRaiting1" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting1"]">
+                    G
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting2" value="PG13">
+                <label class="form-check-label helpCursor" for="radiosRaiting2" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting2"]">
+                    PG-13
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting3" value="R">
+                <label class="form-check-label helpCursor" for="radiosRaiting3" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting3"]">
+                    R
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting4" value="NC17">
+                <label class="form-check-label helpCursor" for="radiosRaiting4" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting4"]">
+                    NC-17
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting5" value="NC21">
+                <label class="form-check-label helpCursor" for="radiosRaiting5" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting5"]">
+                    NC-21
+                </label>
+            </div>
+        </div>
+
+    </div>
+    <div class="input-group mt-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">TAGS<span style="color: red;">*</span></span>
+        </div>
+        <input asp-for="Tags" id="tagsArea" value="Oleg" />
+    </div>
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" value="" id="checkValue">
+        <label class="form-check-label" for="checkValue">
+            <b>Я подтверждаю, что являюсь автором публикуемого мной текста и понимаю, что публикация чужих работ или публикация работ, нарушающих правила, может привести к удалению этих работ и блокировке доступа на сайт.</b>
+        </label>
+    </div>
+    <input type="submit" id="CreateButton" class="btn btn-info w-100 mt-3 mb-3" disabled value="Сохранить и перейти к публикации" />
+
+</form>
+
+@section Scripts{
+   
+    <script src="~/lib/tagify/tagify.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+           
+            var inputElem = document.querySelector('input[id="tagsArea"]');
+            var tagify = new Tagify(inputElem, {
+                whitelist: ['test' , 'test1'],
+                dropdown: {
+                    maxItems: 10,
+                    classname: "tags-look",
+                    enabled: 0,
+                    closeOnSelect: false
+                },
+                originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+            });
+            
+            $('#radioOrigin').click(function () {
+                $('#selectFandom').hide();
+                $('#hRadioOrigin').prop('value', 'Origin');
+            });
+            $('#radioOrigin2').click(function () {
+                $('#selectFandom').show();
+                $('#hRadioOrigin').prop('value', $('#CategoryFandom').val());
+            });
+            $('#CategoryFandom').change(function () {
+                $('#hRadioOrigin').prop('value', $(this).val());
+            })
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+            $(function () {
+                $('#checkValue').click(function () {
+                    if ($('#checkValue').prop("checked"))
+                        $('#CreateButton').prop('disabled', false);
+                    else
+                        $('#CreateButton').prop('disabled', true);
+                })
+            });
+            $(function () {
+                $('[name="raiting"]').click(function () {
+                    $('[name="raiting"]').removeProp('asp-for');
+                    $(this).prop('asp-for', 'AgeRaiting');
+                })
+            });
+
+        })
+    </script>
+}

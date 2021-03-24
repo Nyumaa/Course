@@ -1,0 +1,84 @@
+﻿@model Course_Project.Models.ViewModels.IndexViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Course_Project.Data.UserService 
+
+@inject IViewLocalizer Localizer
+@inject IUserService UserService 
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 border-dark">
+            @if (Model.Posts != null)
+            {
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="bg-secondary pl-2 mb-1">
+                        <div><h4><a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a></h4></div>
+                        <div>
+                            <div class="d-inline ageRaiting small" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting" + post.AgeRaiting]">@Localizer[post.AgeRaiting]</div>
+                            <div class="d-inline size small" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltip" + post.Size]">@Localizer[@post.Size]</div>
+                            <div>
+                                <strong>Автор: </strong>
+                                <i class="bi bi-person-fill"></i>
+                                <a asp-controller="Profile" asp-action="Detail" asp-route-username="@UserService.GetNameById(post.Author)">@UserService.GetNameById(post.Author)</a>
+                            </div>
+                            <div>
+                                <strong>Фэндом: </strong>
+                                <a>@post.Category</a>
+                            </div>
+                            <div class="pb-2">
+                                <strong>Tags:</strong><input id="tags" readonly value="@post.Tags" class="customLook"/>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-lg-4 border-info">
+            <div>
+                <div class="text-center bg-info">Самые популярные работы</div>
+                 @foreach (var post in Model.TopFivePosts)
+                 {       
+                 <div class="bg-success pl-2 mt-1">
+                        <div><a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a></div>
+                        <div><a asp-controller="Profile" asp-action="Detail" asp-route-username="@UserService.GetNameById(post.Author)">@UserService.GetNameById(post.Author)</a></div>
+                        <div>@post.AgeRaiting | @post.Size</div>
+                 </div>
+                 }
+            </div>
+                
+        </div>
+    </div>
+
+
+    <partial name="_PostPagination" model="Model" />
+</div>
+
+@section Scripts{ 
+    <script src="~/lib/tagify/tagify.min.js"></script>
+    <script>
+        var inputElem = document.querySelectorAll('input[id="tags"]');
+        inputElem.forEach(function callback(currentValue, index, array) {
+            var tagify = new Tagify(currentValue, {
+                whitelist: ['test', 'test1'],
+                dropdown: {
+                    maxItems: 10,
+                    classname: "tags-look",
+                    enabled: 0,
+                    closeOnSelect: false
+                },
+                originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+            });
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}

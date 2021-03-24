@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+}
+    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[0].Value" onclick="test('en');">@cultureItems[0].Value</a>
+    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[1].Value" onclick="test('ru');">@cultureItems[1].Value</a>
+<script>
+    function test(cultureq) {
+        $.ajax({
+            url: "/Home/SetLanguage",
+            type: "POST",
+            data: { culture: cultureq, returnUrl: "@Context.Request.Path" }
+        });
+    }
+</script>

@@ -1,0 +1,31 @@
+﻿@model Course_Project.Models.ViewModels.IndexViewModel
+
+<div class="">
+    @if (Model.PageNumber > 1)
+    {
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber - 1)">&lt;</a>
+    }
+
+    @foreach (var p in Model.Pages)
+    {
+        if (p == -1)
+        {
+            <span class="three-dots">
+                ...
+            </span>
+        }
+        else
+        {
+            string activeClass = p == Model.PageNumber ? "active" : "";
+            <a class="@activeClass" asp-action="Index" asp-controller="Home"
+               asp-route-pageNumber="@p">@p</a>
+        }
+
+    }
+
+    @if (Model.NextPage)
+    {
+        <a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber + 1)">></a>
+
+    }
+</div>

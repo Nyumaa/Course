@@ -1,0 +1,37 @@
+﻿@model Course_Project.Models.ViewModels.CreateChapterViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<form method="post" asp-controller="Home" asp-action="CreateChapter">
+    <input asp-for="PostId" hidden />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">TITLE<span style="color: red;">*</span></span>
+        </div>
+        <input asp-for="Title" class="form-control" aria-label="Title" aria-describedby="inputGroup-sizing-default" type="text" name="Title" />
+    </div>
+    <div class="input-group-prepend">
+        <span class="input-group-text mb-1" id="inputGroup-sizing-default">Текст:<span style="color: red;">*</span></span>
+    </div>
+    <textarea id="textBody" asp-for="Body"></textarea>
+    <div class="input-group-prepend mt-3">
+        <span class="input-group-text mb-1" id="inputGroup-sizing-default">Комментарий<span style="color: red;">*</span></span>
+        <i class="bi bi-question-circle ml-2" style="cursor: help;" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipDescription"]"></i>
+    </div>
+    <textarea asp-for="Note" id="mytextarea" name="Description" class="w-100 border bg-light p-2">
+    Hello, World!
+    </textarea>
+    <input type="submit" id="CreateButton" class="btn btn-info w-100 mt-3 mb-3" value="Добавить часть" />
+</form>
+
+
+
+<script src="https://cdn.tiny.cloud/1/zgf6ve055ln4g8zovlv29xruompb7mecltmg7chd4pqieuo6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#textBody',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+    });
+</script>

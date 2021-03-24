@@ -1,0 +1,38 @@
+﻿@model Course_Project.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="text-center">
+    <form asp-controller="Auth" asp-action="Register" method="post">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" asp-for="FirstName" class="form-control" placeholder="First name">
+            </div>
+            <div class="col">
+                <input type="text" asp-for="LastName" class="form-control" placeholder="Last name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputUsername">Username</label>
+            <input type="text" asp-for="Username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputDate">Date of Birth</label>
+            <input type="date" asp-for="DateBirth" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="mt-2" style="color: red;">
+        <p >@Html.ValidationSummary()</p>
+    </div>
+</div>
