@@ -1,14 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
-
+@{string theme = Context.Request.Cookies["theme"]; }
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Course_Project</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @if (theme == "light" || theme == null)
+    {
+        <link id="theme" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
+    else
+    {
+        <link id="theme" rel="stylesheet" href="~/css/bootsstrap.min.dark.css" />
+    }
     <link rel="stylesheet" href="~/css/simple-sidebar.css" />
     <link rel="stylesheet" href="~/lib/bootstrap4-editable/css/bootstrap-editable.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
@@ -45,21 +53,36 @@
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-info navbar-toggler-icon" id="menu-toggle"></button>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li></li>
                         <li class="nav-item active">
+                            @if (theme == null || theme == "light")
+                            {
+                                <i id="BtnChangeTheme" style="cursor: pointer;" class="bi bi-brightness-high-fill mr-2"></i>
+                            }
+                            else
+                            {
+                                <i id="BtnChangeTheme" style="cursor: pointer;" class="bi bi-brightness-high mr-2"></i>
+                            }
                             @await Html.PartialAsync("_SelectLanguagePartial")
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+
                         </li>
                     </ul>
                 </div>
             </nav>
             <div class="container-fluid mt-3">
+                <form id="formSearch" asp-controller="Home" asp-action="Index" method="GET">
+                    <div class="d-flex input-group mb-2">
+                        <input name="pageNumber" hidden value="1" />
+                        <input name="search" id="searchValue" type="text" class="form-control " placeholder="@Localizer["placeholderSearch"]">
+                        <div class="input-group-append">
+
+                            <button id="searchButton" class="btn btn-success" type="button">@Localizer["btnSearch"]</button>
+                        </div>
+                    </div>
+                </form>
+
                 @RenderBody()
             </div>
 
@@ -72,11 +95,39 @@
     <script src="~/lib/bootstrap4-editable/js/bootstrap-editable.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
+        $('#searchButton').click(function () {
+            $('#formSearch').prop('asp-route-search', $('#searchValue').val());
+            
+            $('#formSearch').submit();
+        });
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
-        
+        $("#BtnChangeTheme").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'https://' + $(location).attr('host') + '/Home/ChangeTheme',
+                data: { url: $(location).attr("href")},
+                success: function (response) {
+                    window.location.href = response.redirectToUrl;
+                }
+            });
+            @*var link = document.createElement('link');
+            link.rel = "stylesheet";
+            link.type = "text/css";
+
+
+            var theme = '@Context.Request.Cookies["theme"]';
+            if (theme == null || theme == "light") {
+                $('#theme').remove();
+                link.href = "/lib/bootstrap/dist/css/bootstrap.min.css";
+            } else {
+                $('#theme').remove();
+                link.href = "/css/bootsstrap.min.dark.css";
+            }
+            document.head.appendChild(link);*@
+        });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

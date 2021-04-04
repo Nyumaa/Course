@@ -9,6 +9,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+<link rel="stylesheet" href="~/lib/jqcloud/jqcloud.css" />
 
 
 <div class="container">
@@ -24,16 +25,16 @@
                             <div class="d-inline ageRaiting small" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting" + post.AgeRaiting]">@Localizer[post.AgeRaiting]</div>
                             <div class="d-inline size small" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltip" + post.Size]">@Localizer[@post.Size]</div>
                             <div>
-                                <strong>Автор: </strong>
+                                <strong>@Localizer["labelAuthor"]: </strong>
                                 <i class="bi bi-person-fill"></i>
                                 <a asp-controller="Profile" asp-action="Detail" asp-route-username="@UserService.GetNameById(post.Author)">@UserService.GetNameById(post.Author)</a>
                             </div>
                             <div>
-                                <strong>Фэндом: </strong>
+                                <strong>@Localizer["labelFandom"]: </strong>
                                 <a>@post.Category</a>
                             </div>
                             <div class="pb-2">
-                                <strong>Tags:</strong><input id="tags" readonly value="@post.Tags" class="customLook"/>
+                                <strong>@Localizer["labelTags"]:</strong><input id="tags" readonly value="@post.Tags" class="customLook" />
                             </div>
 
                         </div>
@@ -43,17 +44,23 @@
         </div>
         <div class="col-lg-4 border-info">
             <div>
-                <div class="text-center bg-info">Самые популярные работы</div>
-                 @foreach (var post in Model.TopFivePosts)
-                 {       
-                 <div class="bg-success pl-2 mt-1">
+                <div class="text-center bg-info mb-1 mt-lg-0 mt-md-3 mt-sm-3 ">@Localizer["titleBlockTags"]</div>
+                <div id="example" class="w2 border border-danger w-100 mb-1" style="height: 200px;"></div>
+            </div>
+            
+            <div>
+                <div class="text-center bg-info">@Localizer["titleBlockTopPosts"]</div>
+                @foreach (var post in Model.TopFivePosts)
+                {
+                    <div class="bg-success pl-2 mt-1">
                         <div><a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a></div>
                         <div><a asp-controller="Profile" asp-action="Detail" asp-route-username="@UserService.GetNameById(post.Author)">@UserService.GetNameById(post.Author)</a></div>
                         <div>@post.AgeRaiting | @post.Size</div>
-                 </div>
-                 }
+                    </div>
+                }
             </div>
-                
+
+
         </div>
     </div>
 
@@ -63,6 +70,7 @@
 
 @section Scripts{ 
     <script src="~/lib/tagify/tagify.min.js"></script>
+    <script src="~/lib/jqcloud/jqcloud.min.js"></script>
     <script>
         var inputElem = document.querySelectorAll('input[id="tags"]');
         inputElem.forEach(function callback(currentValue, index, array) {
@@ -80,5 +88,16 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+    </script>
+    <script>
+        var array = new Array();
+        @foreach(var tag in Model.Tags)
+        {
+            @:var tag = { text: '@tag.Name', weight: @tag.Used}
+            @:array.push(tag);
+        }
+        $(function () {
+            $("#example").jQCloud(array);
+        });
     </script>
 }

@@ -120,11 +120,17 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>Admin panel</value>
   </data>
+  <data name="btnSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="placeholderSearch" xml:space="preserve">
+    <value>Enter text </value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>

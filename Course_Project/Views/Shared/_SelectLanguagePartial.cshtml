@@ -12,8 +12,8 @@
         .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
         .ToList();
 }
-    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[0].Value" onclick="test('en');">@cultureItems[0].Value</a>
-    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[1].Value" onclick="test('ru');">@cultureItems[1].Value</a>
+    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[0].Value" onclick="test('en');"><img src="~/images/en.svg" width="35" height="35"  /></a>
+    <a asp-route-returnUrl="@Context.Request.Path" asp-route-culture="@cultureItems[1].Value" onclick="test('ru');"><img src="~/images/ru.svg" width="35" height="35" /></a>
 <script>
     function test(cultureq) {
         $.ajax({

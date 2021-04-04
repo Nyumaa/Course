@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAccept" xml:space="preserve">
+    <value>Сохранить и перейти к публикации</value>
+  </data>
+  <data name="Drabbl" xml:space="preserve">
+    <value>Драббл</value>
+  </data>
+  <data name="labelAcceptText" xml:space="preserve">
+    <value>Я подтверждаю, что являюсь автором публикуемого мной текста и понимаю, что публикация чужих работ или публикация работ, нарушающих правила, может привести к удалению этих работ и блокировке доступа на сайт.</value>
+  </data>
+  <data name="labelDescription" xml:space="preserve">
+    <value>ОПИСАНИЕ</value>
+  </data>
+  <data name="labelFandom" xml:space="preserve">
+    <value>ФЭНДОМ</value>
+  </data>
+  <data name="labelRaiting" xml:space="preserve">
+    <value>РЕЙТИНГ</value>
+  </data>
+  <data name="labelSize" xml:space="preserve">
+    <value>РАЗМЕР</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>МЕТКИ</value>
+  </data>
+  <data name="labelTitle" xml:space="preserve">
+    <value>НАЗВАНИЕ</value>
+  </data>
+  <data name="Maxi" xml:space="preserve">
+    <value>Макси</value>
+  </data>
+  <data name="Midi" xml:space="preserve">
+    <value>Миди</value>
+  </data>
+  <data name="Mini" xml:space="preserve">
+    <value>Мини</value>
+  </data>
+  <data name="radioFandom" xml:space="preserve">
+    <value>Фэндом</value>
+  </data>
+  <data name="radioOrigin" xml:space="preserve">
+    <value>Ориджин</value>
+  </data>
   <data name="tooltipDescription" xml:space="preserve">
     <value>Короткое описание сюжета фанфика (до 500 символов). Не поленитесь придумать описание, именно по нему читатель будет принимать решение - читать вашу работу или нет.</value>
   </data>

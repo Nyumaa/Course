@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAccept" xml:space="preserve">
+    <value>Save and go to publication</value>
+  </data>
+  <data name="Drabbl" xml:space="preserve">
+    <value>Drabbl</value>
+  </data>
+  <data name="labelAcceptText" xml:space="preserve">
+    <value>I confirm that I am author the published text published by me and I understand that the publication of other people's works or the publication of works that violate the rules may lead to the removal of these works and blocking access to the site.</value>
+  </data>
+  <data name="labelDescription" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="labelFandom" xml:space="preserve">
+    <value>FANDOM</value>
+  </data>
+  <data name="labelRaiting" xml:space="preserve">
+    <value>RAITING</value>
+  </data>
+  <data name="labelSize" xml:space="preserve">
+    <value>SIZE</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>TAGS</value>
+  </data>
+  <data name="labelTitle" xml:space="preserve">
+    <value>TITLE</value>
+  </data>
+  <data name="Maxi" xml:space="preserve">
+    <value>Maxi</value>
+  </data>
+  <data name="Midi" xml:space="preserve">
+    <value>Midi</value>
+  </data>
+  <data name="Mini" xml:space="preserve">
+    <value>Mini</value>
+  </data>
+  <data name="radioFandom" xml:space="preserve">
+    <value>Fandom</value>
+  </data>
+  <data name="radioOrigin" xml:space="preserve">
+    <value>Origin</value>
+  </data>
   <data name="tooltipDescription" xml:space="preserve">
     <value>A short description of the fanfic plot (up to 500 characters). Do not be lazy to come up with a description, it is on it that the reader will make a decision - to read your work or not.</value>
   </data>

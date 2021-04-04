@@ -83,6 +83,11 @@ html {
     padding: 3px 20px 3px 20px;
     cursor: help;
 }
+.raiting {
+    border-radius: 12px;
+    background: #ef9a48;
+    padding: 3px 20px 3px 20px;
+}
 
 .customLook {
     --tag-bg: #0052BF;

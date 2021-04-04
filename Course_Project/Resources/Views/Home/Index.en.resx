@@ -117,7 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Drabbl" xml:space="preserve">
+    <value>Drabbl</value>
+  </data>
+  <data name="G" xml:space="preserve">
+    <value>G</value>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>FANFIKI</value>
+  </data>
+  <data name="labelAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="labelFandom" xml:space="preserve">
+    <value>Fandom</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Maxi" xml:space="preserve">
+    <value>Maxi</value>
+  </data>
+  <data name="Midi" xml:space="preserve">
+    <value>Midi</value>
+  </data>
+  <data name="Mini" xml:space="preserve">
+    <value>Mini</value>
+  </data>
+  <data name="NC17" xml:space="preserve">
+    <value>NC-17</value>
+  </data>
+  <data name="NC21" xml:space="preserve">
+    <value>NC-21</value>
+  </data>
+  <data name="PG13" xml:space="preserve">
+    <value>PG-13</value>
+  </data>
+  <data name="R" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="titleBlockTags" xml:space="preserve">
+    <value>Our site's tag cloud:</value>
+  </data>
+  <data name="titleBlockTopPosts" xml:space="preserve">
+    <value>Most popular works</value>
+  </data>
+  <data name="tooltipDrabbl" xml:space="preserve">
+    <value>Drabble is a piece that may or may not be fanfiction. Often just a scene, a sketch, a character description.</value>
+  </data>
+  <data name="tooltipMaxi" xml:space="preserve">
+    <value>Maxi is a big fanfic. The size often exceeds the average romance. From about 70 typewritten pages.</value>
+  </data>
+  <data name="tooltipMidi" xml:space="preserve">
+    <value>Midi is an average fanfic. Estimated size: 20 to 70 typewritten pages.</value>
+  </data>
+  <data name="tooltipMini" xml:space="preserve">
+    <value>Mini is a little fanfic. Size from one typewritten page to 20.</value>
+  </data>
+  <data name="tooltipRaitingG" xml:space="preserve">
+    <value>G - fanfic that can be read by any audience.</value>
+  </data>
+  <data name="tooltipRaitingNC17" xml:space="preserve">
+    <value>NC-17 - fanfic, that can be detailed erotic, violent, or some other difficult moment.</value>
+  </data>
+  <data name="tooltipRaitingNC21" xml:space="preserve">
+    <value>NC-21 - fanfic, that can have very high levels of brutality, violence, detailed erotic scenes, or the like.</value>
+  </data>
+  <data name="tooltipRaitingPG13" xml:space="preserve">
+    <value>PG-13 - fanfic, that may feature kissing-level romance and / or may contain hints of violence and other difficult moments.</value>
+  </data>
+  <data name="tooltipRaitingR" xml:space="preserve">
+    <value>R - fanfic in which there are erotic scenes or violence without a detailed graphic description.</value>
   </data>
 </root>

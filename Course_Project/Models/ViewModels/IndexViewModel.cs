@@ -16,5 +16,6 @@ namespace Course_Project.Models.ViewModels
         public IEnumerable<Post> Posts { get; set; }
         public IEnumerable<Post> TopFivePosts { get; set; }
         public IEnumerable<int> Pages { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
     }
 }

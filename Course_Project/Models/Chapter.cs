@@ -13,5 +13,6 @@ namespace Course_Project.Models
         public string Note { get; set; }
         public string Body { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
+        public List<Like> Likes { get; set; }
     }
 }

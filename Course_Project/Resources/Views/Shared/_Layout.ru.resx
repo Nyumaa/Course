@@ -120,11 +120,17 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>Админ панель</value>
   </data>
+  <data name="btnSearch" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Главная</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="placeholderSearch" xml:space="preserve">
+    <value>Введите текст</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>

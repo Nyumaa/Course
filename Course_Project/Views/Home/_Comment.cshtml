@@ -5,21 +5,65 @@
 }
 
 <div>
-    <form method="post" asp-controller="Home" asp-action="Comment">
+    <form id="commentForm" method="post" asp-controller="Home" asp-action="Comment">
         <input asp-for="PostId" type="hidden" />
         <input asp-for="Author" type="hidden" />
         <textarea id="mytextarea" asp-for="Message"></textarea>
-        <button class="btn btn-outline-primary mt-1" type="submit">Submit</button>
+        <button id="btnSendMessage" class="btn btn-outline-primary mt-1" type="button">Submit</button>
     </form>
 </div>
 
-    <script src="https://cdn.tiny.cloud/1/zgf6ve055ln4g8zovlv29xruompb7mecltmg7chd4pqieuo6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            toolbar_mode: 'floating',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-        });
-    </script>
+<script src="https://cdn.tiny.cloud/1/zgf6ve055ln4g8zovlv29xruompb7mecltmg7chd4pqieuo6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+    });
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/Post")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    async function start() {
+        try {
+            await hubConnection.start();
+            console.log("SignalR Connected");
+        } catch (err) {
+            console.log(err);
+            setTimeout(start, 5000);
+        }
+    }
+    hubConnection.on("ReceiveComment", function (name, postId, comment) {
+        var id = '@Model.PostId';
+        var data = '@DateTime.Now';
+        if (id == postId) {
+            var el = document.createElement("div");
+            el.setAttribute('class', 'container-fluid border border-dark mb-2');
+            el.innerHTML = `<div class="row">
+                <div class="col-lg-2 bg-success">`+name+`</div>
+                <div class="col-lg-10 bg-secondary">
+                    <div>`+ data + `</div>
+                    <div>`+ comment + `</div>
+                </div>
+            </div>`;
+            $('#commentsBlock').append(el);
+        }
+        
+    });
+    start();
+
+    $('#btnSendMessage').click(function () {
+        var comment = tinymce.get("mytextarea").getContent();
+        if (comment != "") {
+            var name = '@Model.Author';
+            var postId = '@Model.PostId'
+            hubConnection.invoke('Comment', name, postId, comment);
+            $('#commentForm').submit();
+        }
+    })
+</script>
 

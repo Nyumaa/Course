@@ -16,6 +16,39 @@
     {
       "library": "tagify@3.23.1",
       "destination": "wwwroot/lib/tagify/"
+    },
+    {
+      "library": "jqcloud@1.0.3",
+      "destination": "wwwroot/lib/jqcloud/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@yaireo/dragsort@1.1.0",
+      "destination": "wwwroot/lib/yaireo/dragsort/",
+      "files": [
+        "dist/dragsort.css",
+        "dist/dragsort.js"
+      ]
+    },
+    {
+      "library": "dropzone@5.8.1",
+      "destination": "wwwroot/lib/dropzone/"
+    },
+    {
+      "library": "signalr.js@2.4.1",
+      "destination": "wwwroot/lib/signalr.js/"
+    },
+    {
+      "library": "microsoft-signalr@5.0.4",
+      "destination": "wwwroot/lib/microsoft-signalr/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@5.0.4",
+      "destination": "wwwroot/lib/microsoft/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
     }
   ]
 }

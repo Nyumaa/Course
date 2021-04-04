@@ -2,3 +2,48 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
+@{
+    int countLikes = Model.Likes == null ? 0 : @Model.Likes.Count();
+}
+<div class="container mt-2">
+    <div class="text-center"><h4>@Model.Title</h4></div>
+    <div>
+        <div><b>Комментарий автора: @Model.Note</b></div>
+        <hr />
+    </div>
+    <div>@Html.Raw(Model.Body)</div>
+    <div>
+        <button id="btnLike" class="btn btn-info"><span class="">Like <i class="bi bi-hand-thumbs-up-fill"></i> @countLikes</span></button>
+    </div>
+</div>
+
+@section Scripts{
+
+    @if (Model.LikeReady)
+    {
+        <script>
+            $('#btnLike').prop("disabled", true);
+        </script>
+    }
+    else
+    {
+<script>
+    $('#btnLike').click(function () {
+        $.ajax({
+            url: "/Home/AddLikeOnChapter",
+            type: "POST",
+            data: {
+                id: '@Model.PostId',
+                idC: '@Model.Id'
+            }
+        });
+        @{countLikes++;};
+        $('#btnLike').off();
+        $('#btnLike').html('<span class="">Like <i class="bi bi-hand-thumbs-up-fill"></i> @countLikes</span>');
+        $('#btnLike').prop("disabled", true);
+    });
+
+</script>
+    }
+}
+

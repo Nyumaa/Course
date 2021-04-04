@@ -15,6 +15,12 @@ namespace Course_Project.Data
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Post>().HasIndex(p => p.Id).IsUnique().IncludeProperties(p => p.Description);
+            base.OnModelCreating(builder);
+        }
+
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }

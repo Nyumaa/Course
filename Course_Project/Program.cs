@@ -30,7 +30,6 @@ namespace Course_Project
 
                 var adminRole = new IdentityRole("Admin");
                 var userRole = new IdentityRole("User");
-
                 roleMng.CreateAsync(adminRole).GetAwaiter().GetResult();
 
                 if (!ctx.Roles.Contains(userRole))

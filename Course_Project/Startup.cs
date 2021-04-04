@@ -19,6 +19,8 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Course_Project.Data.UserService;
+using Course_Project.Data.CloudStorage;
+using Course_Project.Models.Hubs;
 
 namespace Course_Project
 {
@@ -38,7 +40,7 @@ namespace Course_Project
             services.AddControllersWithViews()
                 .AddDataAnnotationsLocalization()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-                
+            services.AddSignalR();
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]
@@ -64,8 +66,11 @@ namespace Course_Project
             {
                 options.LoginPath = "/Auth/Login";
             });
-            
-            
+
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromSeconds(1);
+            });
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
@@ -95,7 +100,9 @@ namespace Course_Project
                 });
                 services.AddTransient<IRepository, Repository>();
                 services.AddTransient<IUserService, UserService>();
-            
+                services.AddSingleton<ICloudStorage, GoogleCloudStorage>();
+
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -122,6 +129,7 @@ namespace Course_Project
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<PostHub>("/Post");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

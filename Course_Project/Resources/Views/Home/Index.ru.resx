@@ -117,7 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Drabbl" xml:space="preserve">
+    <value>Драббл</value>
+  </data>
+  <data name="G" xml:space="preserve">
+    <value>G</value>
+  </data>
   <data name="Header" xml:space="preserve">
     <value>ФАНФИКИ</value>
+  </data>
+  <data name="labelAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="labelFandom" xml:space="preserve">
+    <value>Фэндом</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>Метки</value>
+  </data>
+  <data name="Maxi" xml:space="preserve">
+    <value>Макси</value>
+  </data>
+  <data name="Midi" xml:space="preserve">
+    <value>Миди</value>
+  </data>
+  <data name="Mini" xml:space="preserve">
+    <value>Мини</value>
+  </data>
+  <data name="NC17" xml:space="preserve">
+    <value>NC-17</value>
+  </data>
+  <data name="NC21" xml:space="preserve">
+    <value>NC-21</value>
+  </data>
+  <data name="PG13" xml:space="preserve">
+    <value>PG-13</value>
+  </data>
+  <data name="R" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="titleBlockTags" xml:space="preserve">
+    <value>Облако тегов нашего сайта:</value>
+  </data>
+  <data name="titleBlockTopPosts" xml:space="preserve">
+    <value>Самые популярные работы</value>
+  </data>
+  <data name="tooltipDrabbl" xml:space="preserve">
+    <value>Драббл - отрывок, который может стать настоящим фанфиком, а может и не стать. Часто просто сцена, зарисовка, описание персонажа.</value>
+  </data>
+  <data name="tooltipMaxi" xml:space="preserve">
+    <value>Макси - большой фанфик. Размер часто превышает средний роман. Примерно от 70 машинописных страниц.</value>
+  </data>
+  <data name="tooltipMidi" xml:space="preserve">
+    <value>Миди - средний фанфик. Примерный размер: от 20 до 70 машинописных страниц.</value>
+  </data>
+  <data name="tooltipMini" xml:space="preserve">
+    <value>Мини - маленький фанфик. Размер от одной машинописной страницы до 20.</value>
+  </data>
+  <data name="tooltipRaitingG" xml:space="preserve">
+    <value>G - фанфики, которые можно читать любой аудитории.</value>
+  </data>
+  <data name="tooltipRaitingNC17" xml:space="preserve">
+    <value>NC-17 - фанфики, в которых могут быть детально описаны эротические сцены, насилие либо какие-то другие тяжёлые моменты.</value>
+  </data>
+  <data name="tooltipRaitingNC21" xml:space="preserve">
+    <value>NC-21 - фанфики, в которых может быть очень высокий уровень жестокости, насилия, подробного описания эротических сцен или чего-либо подобного.</value>
+  </data>
+  <data name="tooltipRaitingPG13" xml:space="preserve">
+    <value>PG-13 - фанфики, в которых могут быть описаны романтические отношения на уровне поцелуев и/или могут присутствовать намёки на насилие и другие тяжёлые моменты.</value>
+  </data>
+  <data name="tooltipRaitingR" xml:space="preserve">
+    <value>R - фанфики, в которых присутствуют эротические сцены или насилие без детального графического описания.</value>
   </data>
 </root>

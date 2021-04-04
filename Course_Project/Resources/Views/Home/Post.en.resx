@@ -117,14 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAddChapter" xml:space="preserve">
+    <value>Add a new chapter</value>
+  </data>
+  <data name="btnDeleteChapter" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="btnEditPost" xml:space="preserve">
+    <value>Edit post</value>
+  </data>
   <data name="Drabbl" xml:space="preserve">
     <value>Drabbl</value>
   </data>
   <data name="G" xml:space="preserve">
     <value>G</value>
   </data>
+  <data name="labelAuthor" xml:space="preserve">
+    <value>author</value>
+  </data>
+  <data name="labelContent" xml:space="preserve">
+    <value>Content:</value>
+  </data>
+  <data name="labelDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
   <data name="Maxi" xml:space="preserve">
     <value>Maxi</value>
+  </data>
+  <data name="messageEmptyContent" xml:space="preserve">
+    <value>The user hasn't added anything here yet!</value>
   </data>
   <data name="Midi" xml:space="preserve">
     <value>Midi</value>

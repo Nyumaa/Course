@@ -117,14 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAddChapter" xml:space="preserve">
+    <value>Добавить новую главу</value>
+  </data>
+  <data name="btnDeleteChapter" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="btnEditPost" xml:space="preserve">
+    <value>Изменить фанфик</value>
+  </data>
   <data name="Drabbl" xml:space="preserve">
     <value>Драббл</value>
   </data>
   <data name="G" xml:space="preserve">
     <value>G</value>
   </data>
+  <data name="labelAuthor" xml:space="preserve">
+    <value>автор</value>
+  </data>
+  <data name="labelContent" xml:space="preserve">
+    <value>Содержание:</value>
+  </data>
+  <data name="labelDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="labelTags" xml:space="preserve">
+    <value>Метки</value>
+  </data>
   <data name="Maxi" xml:space="preserve">
     <value>Макси</value>
+  </data>
+  <data name="messageEmptyContent" xml:space="preserve">
+    <value>Пользователь еще ничего сюда не добавил!</value>
   </data>
   <data name="Midi" xml:space="preserve">
     <value>Миди</value>

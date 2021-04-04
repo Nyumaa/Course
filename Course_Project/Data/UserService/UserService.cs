@@ -81,6 +81,11 @@ namespace Course_Project.Data.UserService
                 await _userManager.DeleteAsync(_userManager.FindByIdAsync(user).Result);
             }
         }
+
+        public async Task Update(User user)
+        {
+            await _userManager.UpdateAsync(user);
+        }
         public PanelViewModel GetAll(int pageNumber)
         {
             int pageSize = 5;

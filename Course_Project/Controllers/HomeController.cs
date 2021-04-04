@@ -29,13 +29,14 @@ namespace Course_Project.Controllers
             _repo = repository;
             _user = user;
         }
-        public IActionResult Index(int pageNumber)
+        public IActionResult Index(int pageNumber, string search)
         {
             if (pageNumber < 1)
                 return RedirectToAction("Index", new { pageNumber = 1 });
 
-            IndexViewModel vm = _repo.GetAllPosts(pageNumber);
+            IndexViewModel vm = _repo.GetAllPosts(pageNumber, search);
             vm.TopFivePosts = _repo.GetTopFivePosts();
+            vm.Tags = _repo.GetAllTags();
             return View(vm);
         }
         [Authorize(Roles = "Admin")]
@@ -45,13 +46,51 @@ namespace Course_Project.Controllers
             string name = username;
             if (string.IsNullOrEmpty(name))
                 name = User.Identity.Name;
-            return View("Create", new CreateViewModel { Author = name });
+            return View("Create", new CreateViewModel { Author = name, WhiteList = _repo.GetAllTags() });
             
         }
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new CreateViewModel { Author = User.Identity.Name });
+            return View(new CreateViewModel { Author = User.Identity.Name , WhiteList = _repo.GetAllTags()});
+        }
+
+        [HttpGet("Post/{action}/{id}")]
+        public IActionResult Edit(int id)
+        {
+            Post post = _repo.GetPost(id);
+            if (User.Identity.Name == _user.GetNameById(post.Author) || User.IsInRole("Admin"))
+            {
+                return View(new EditViewModel { Id = post.Id, Description = post.Description, AgeRaiting = post.AgeRaiting, Size = post.Size, Tags = post.Tags, Title = post.Title, WhiteList = _repo.GetAllTags() });
+            }
+            else
+                return RedirectToAction("Index");
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>EditPost(EditViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var post = _repo.GetPost(vm.Id);
+                post.Title = vm.Title;
+                post.Description = vm.Description;
+                post.AgeRaiting = vm.AgeRaiting;
+                post.Size = vm.Size;
+                post.Tags = vm.Tags;
+
+                _repo.UpdatePost(post);
+                await _repo.SaveChangesAsync();
+
+                return RedirectToAction("Post", new { id = vm.Id });
+            }
+            else
+            {
+                vm.WhiteList = _repo.GetAllTags();
+                return View("Edit", vm);
+            }
+                
         }
 
         [HttpPost]
@@ -66,6 +105,7 @@ namespace Course_Project.Controllers
                     Category = vm.Category,
                     Description = vm.Description,
                     Size = vm.Size,
+                    Raiting = 0,
                     AgeRaiting = vm.AgeRaiting,
                     Author = _user.GetIdByName(vm.Author),
                     Tags = vm.Tags
@@ -79,12 +119,14 @@ namespace Course_Project.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Проверьте введеную информацию и попробуйте еще раз!");
+                    vm.WhiteList = _repo.GetAllTags();
                     return View("Create", vm);
                 }  
             }
             else
             {
                 //ModelState.AddModelError(string.Empty, "Заполните все поля!");
+                vm.WhiteList = _repo.GetAllTags();
                 return View("Create", vm);
             }
         }
@@ -107,7 +149,9 @@ namespace Course_Project.Controllers
                     Chapters = post.Chapters,
                     ImageUrl = author.ImageUrl,
                     Tags = post.Tags,
-                    Comments = post.Comments
+                    Comments = post.Comments,
+                    Raiting = post.Raiting,
+                    Raitings = post.Raitings
                 });
             }
             else
@@ -140,13 +184,46 @@ namespace Course_Project.Controllers
             else
             {
                 //ModelState.AddModelError(string.Empty, "Заполните все поля!");
-                return View("Index");
+                return View("CreateChapter", vm);
             }
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeleteChapter(int idPost, int idChapter)
+        {
+            Post post = _repo.GetPost(idPost);
+            if(_user.GetNameById(post.Author) == User.Identity.Name || User.IsInRole("Admin"))
+            {
+                Chapter chapter = post.Chapters.FirstOrDefault(c => c.Id == idChapter);
+                if(chapter != null)
+                {
+                    post.Chapters.Remove(chapter);
+                    _repo.UpdatePost(post);
+                    await _repo.SaveChangesAsync();
+                }
+            }
+
+            return Json(new { redirectToUrl = Url.Action("Post", new { id = idPost }) });
         }
         [HttpGet("Post/{id}/[action]/{idC}")]
         public IActionResult Chapter(int id, int idC)
         {
-            return View();
+            Chapter chapter = _repo.GetChapterOnPost(id, idC);
+            if (chapter == null)
+                return RedirectToAction("Index");
+
+            ChapterViewModel vm = new ChapterViewModel
+            {
+                Id = idC,
+                Body = chapter.Body,
+                Note = chapter.Note,
+                PostId = id,
+                Title = chapter.Title,
+                Likes = chapter.Likes,
+                LikeReady = chapter.Likes.FirstOrDefault(x => x.Author == _user.GetIdByName(User.Identity.Name)) != null ? true : false 
+                
+            };
+            return View(vm);
         }
         [Authorize]
         [HttpPost]
@@ -168,6 +245,27 @@ namespace Course_Project.Controllers
             return RedirectToAction("Post", new { id = vm.PostId });
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task AddRaiting(int id, int value)
+        {
+            var post = _repo.GetPost(id);
+            post.Raitings.Add(new Raiting { Author = _user.GetIdByName(User.Identity.Name), Value = value });
+            _repo.RecalculateRaiting(ref post);
+            _repo.UpdatePost(post);
+            await _repo.SaveChangesAsync();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task AddLikeOnChapter(int id, int idC) 
+        {
+            var post = _repo.GetPost(id);
+            post.Chapters.Where(c => c.Id == idC).ToList()[0].Likes.Add(new Like { Author = _user.GetIdByName(User.Identity.Name) });
+            _repo.UpdatePost(post);
+            await _repo.SaveChangesAsync();
+        }
+
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
@@ -178,6 +276,25 @@ namespace Course_Project.Controllers
             );
 
             return LocalRedirect(returnUrl);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeTheme(string url)
+        {
+            string cookie = Request.Cookies["theme"];
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            if (cookie == null || cookie == "light")
+            {
+                Response.Cookies.Append("theme", "dark", options);
+            }
+            else
+            {
+                Response.Cookies.Append("theme", "light", options);
+            }
+            return Json(new { redirectToUrl = LocalRedirect(url).Url});
+
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

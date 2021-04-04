@@ -16,6 +16,7 @@ namespace Course_Project.Data.UserService
         PanelViewModel GetAll(int pageNumber);
         string GetNameById(string id);
         string GetIdByName(string name);
+        Task Update(User user);
         Task ChangeStatusUser(string[] users, string state);
         Task AddNewRole(string[] users, string role);
         Task DeleteRole(string[] users, string role);

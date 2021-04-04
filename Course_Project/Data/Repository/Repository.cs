@@ -19,8 +19,10 @@ namespace Course_Project.Data.Repository
         public Post GetPost(int id)
         {
             return _ctx.Posts
-                 .Include(p => p.Comments)
+                 .Include(p => p.Comments)              
+                 .Include(p => p.Raitings)
                  .Include(p => p.Chapters)
+                 .ThenInclude(c => c.Likes)
                  .FirstOrDefault(p => p.Id == id);
         }
 
@@ -30,24 +32,30 @@ namespace Course_Project.Data.Repository
         }
         public List<Post> GetTopFivePosts()
         {
-            return _ctx.Posts.OrderBy(x => x.Raiting).Take(5).ToList();
+            return _ctx.Posts.OrderByDescending(x => x.Raiting).Take(5).ToList();
         }
         public List<Post> GetAllPosts()
         {
-            return _ctx.Posts.ToList();
+            return _ctx.Posts.OrderBy(p => p.Category).ToList();
+        }
+
+        public List<Tag> GetAllTags()
+        {
+            return _ctx.Tags.ToList();
         }
         public void AddPost(Post post)
         {
             AddTags(post.Tags);
             _ctx.Posts.Add(post);
         }
-        public IndexViewModel GetAllPosts(int pageNumber)
+        public IndexViewModel GetAllPosts(int pageNumber, string search)
         {
             int pageSize = 5;
             int skipAmount = pageSize * (pageNumber - 1);
 
-            var query = GetAllPosts(); 
-
+            var query = GetAllPosts();
+            if (search != null)
+                query = _ctx.Posts.Where(x => EF.Functions.Contains(x.Description, search) || EF.Functions.Contains(x.Title, search)).ToList();
             int usersCount = query.Count();
             int pageCount = (int)Math.Ceiling(usersCount * 1.0 / pageSize);
 
@@ -62,8 +70,15 @@ namespace Course_Project.Data.Repository
                 PageCount = pageCount,
                 NextPage = usersCount > skipAmount + pageSize,
                 Pages = pageNumbers(pageNumber, pageCount),
-                Posts = posts
+                Posts = posts,
+                Search = search
             };
+        }
+        public Chapter GetChapterOnPost(int idPost, int idChapter)
+        {
+            Post post = GetPost(idPost);
+            List <Chapter> chapter = post.Chapters.Where(c => c.Id == idChapter).ToList();
+            return chapter.Count != 0 ? chapter[0] : null;
         }
         private void AddTags(string tags)
         {
@@ -122,6 +137,13 @@ namespace Course_Project.Data.Repository
         public void UpdatePost(Post post)
         {
             _ctx.Posts.Update(post);
+        }
+
+        public void RecalculateRaiting(ref Post post)
+        {
+            int sum = 0;
+            post.Raitings.ForEach(x => sum += x.Value);
+            post.Raiting = (float)sum / (float)post.Raitings.Count();
         }
         public async Task<bool> SaveChangesAsync()
         {

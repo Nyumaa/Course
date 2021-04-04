@@ -22,11 +22,12 @@ namespace Course_Project.Models
         public string Category { get; set; }
         public string Size { get; set; }
         public string AgeRaiting { get; set; }
-        public float Raiting { get; set; }
+        public float Raiting { get; set; } = 0;
         [MaxLength(255)]
         public string Author { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public List<Chapter> Chapters { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Raiting> Raitings { get; set; }
     }
 }

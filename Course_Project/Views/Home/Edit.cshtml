@@ -1,0 +1,141 @@
+﻿@model Course_Project.Models.ViewModels.EditViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<div class="mt-2 ml-3" style="color: red;">
+    <p>@Html.ValidationSummary()</p>
+</div>
+<form method="post" asp-controller="Home" asp-action="EditPost">
+    <input asp-for="Id" type="hidden" />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">TITLE<span style="color: red;">*</span></span>
+        </div>
+        <input asp-for="Title" class="form-control" aria-label="Title" aria-describedby="inputGroup-sizing-default" type="text" name="Title" />
+    </div>
+    <div class="input-group-prepend">
+        <span class="input-group-text mb-1" id="inputGroup-sizing-default">DESCRIPTION<span style="color: red;">*</span></span>
+        <i class="bi bi-question-circle ml-2" style="cursor: help;" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipDescription"]"></i>
+    </div>
+    <textarea asp-for="Description" id="mytextarea" name="Description" class="w-100 border bg-light p-2">
+    @Model.Description
+    </textarea>
+    <div class="mt-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text mb-1" id="inputGroup-sizing-default">SIZE</span>
+        </div>
+        <div class="ml-1">
+            <div class="form-check">
+                <input class="form-check-input" checked type="radio" name="size" id="radioSize1" value="Drabbl">
+                <label class="form-check-label helpCursor" for="radiosSize1" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize1"]">
+                    Драббл
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize2" value="Mini">
+                <label class="form-check-label helpCursor" for="radiosSize2" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize2"]">
+                    Мини
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize3" value="Midi">
+                <label class="form-check-label helpCursor" for="radiosSize3" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize3"]">
+                    Миди
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="size" id="radioSize4" value="Maxi">
+                <label class="form-check-label helpCursor" for="radiosSize4" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipSize4"]">
+                    Макси
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text mb-1" id="inputGroup-sizing-default">RAITING</span>
+        </div>
+        <div class="ml-1">
+            <div class="form-check">
+                <input class="form-check-input" checked type="radio" name="ageraiting" id="radioRaiting1" value="G">
+                <label class="form-check-label helpCursor" for="radiosRaiting1" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting1"]">
+                    G
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting2" value="PG13">
+                <label class="form-check-label helpCursor" for="radiosRaiting2" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting2"]">
+                    PG-13
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting3" value="R">
+                <label class="form-check-label helpCursor" for="radiosRaiting3" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting3"]">
+                    R
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting4" value="NC17">
+                <label class="form-check-label helpCursor" for="radiosRaiting4" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting4"]">
+                    NC-17
+                </label>
+            </div>
+            <div class="form-check ">
+                <input class="form-check-input" type="radio" name="ageraiting" id="radioRaiting5" value="NC21">
+                <label class="form-check-label helpCursor" for="radiosRaiting5" data-toggle="tooltip" data-placement="top" title="@Localizer["tooltipRaiting5"]">
+                    NC-21
+                </label>
+            </div>
+        </div>
+
+    </div>
+    <div class="input-group mt-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">TAGS<span style="color: red;">*</span></span>
+        </div>
+        <input asp-for="Tags" id="tagsArea" value="@Model.Tags" />
+    </div>
+    <input type="submit" id="CreateButton" class="btn btn-info w-100 mt-3 mb-3" value="Сохранить и принять изменения!" />
+
+</form>
+
+@section Scripts{
+
+    <script src="~/lib/tagify/tagify.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var whiteList = new Array();
+            @foreach(var tag in Model.WhiteList)
+            {
+                @:var tag = '@tag.Name';
+                @:whiteList.push(tag);
+            }
+            $('input[value="@Model.Size"]').prop('asp-for', 'Size');
+            $('input[value="@Model.Size"]').prop('checked', true);
+            $('input[value="@Model.AgeRaiting"]').prop('asp-for', 'AgeRaiting');
+            $('input[value="@Model.AgeRaiting"]').prop('checked', true);
+            var inputElem = document.querySelector('input[id="tagsArea"]');
+            var tagify = new Tagify(inputElem, {
+                whitelist: whiteList,
+                dropdown: {
+                    maxItems: 10,
+                    classname: "tags-look",
+                    enabled: 0,
+                    closeOnSelect: false
+                },
+                originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+            });
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+            $(function () {
+                $('[name="raiting"]').click(function () {
+                    $('[name="raiting"]').removeProp('asp-for');
+                    $(this).prop('asp-for', 'AgeRaiting');
+                })
+            });
+
+        })
+    </script>
+}
